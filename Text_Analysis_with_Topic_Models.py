@@ -1,6 +1,8 @@
 #https://de.dariah.eu/tatom/working_with_text.html
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
+from sys import exit
+
 filenames = ['data/austen-brontë/Austen_Emma.txt',
              'data/austen-brontë/Austen_Pride.txt',
              'data/austen-brontë/Austen_Sense.txt',
@@ -8,6 +10,7 @@ filenames = ['data/austen-brontë/Austen_Emma.txt',
               'data/austen-brontë/CBronte_Professor.txt',
               'data/austen-brontë/CBronte_Villette.txt']
 vectorizer = CountVectorizer(input='filename')
+
 dtm = vectorizer.fit_transform(filenames)  # a sparse matrix - DocumentTermMatrix - puts data CountVectorizer in a matrix
 vocab = vectorizer.get_feature_names()  # a list
 #print(dtm)
@@ -56,10 +59,17 @@ dtm[0, house_idx]
 # print(np.round(dist, 1))
 
 # sklearn
+# print(len(vocab)) # dimensions
+# from sklearn.metrics.pairwise import euclidean_distances
+# dist = euclidean_distances(dtm)
+# print(np.round(dist, 1))
+
 print(len(vocab)) # dimensions
-from sklearn.metrics.pairwise import euclidean_distances
-dist = euclidean_distances(dtm)
-print(np.round(dist, 1))
+from sklearn.metrics.pairwise import cosine_similarity
+similarity = cosine_similarity (dtm)
+print(similarity)
+
+
 
 
 
